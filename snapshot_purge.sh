@@ -1,15 +1,13 @@
 #!/bin/bash
 
 # Usage: snapshot_purge.sh [ dataset_name ] [ snapshots count to leave ] (optional: dry run = 1 to enable)
-# Example: snapshot_purge.sh Pool1/dataset1 5 1
-
-LEAVE_N_SNAPSHOTS=$2
-DRY_RUN=0
+# Example: snapshot_purge.sh Pool1/dataset1 5
+# Example (dry run): snapshot_purge.sh Pool1/dataset1 5 1
 
 if [[ -z $1 || -z $2 ]]
 then
         printf  "Missing arguments.\n   Usage: snapshot_purge.sh [ dataset_name ] [ snapshots count to leave ] (optional: dry run = 1 to enable)"
-        printf "\n      Example: snapshot_purge.sh Pool1/dataset1 5 1"
+        printf "\n      Example: snapshot_purge.sh Pool1/dataset1 5"
         exit 1
 fi
 
@@ -18,6 +16,8 @@ then
         DRY_RUN=$3
 fi
 
+LEAVE_N_SNAPSHOTS=$2
+DRY_RUN=0
 DATASET="$1"
 CURRENT_SNAPSHOT_COUNT=`zfs list -t snapshot -o name -S creation | grep $DATASET | wc -l`
 
