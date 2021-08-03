@@ -6,8 +6,10 @@
 
 if [[ -z $1 || -z $2 ]]
 then
-        printf  "Missing arguments.\n   Usage: snapshot_purge.sh [ dataset_name ] [ snapshots count to leave ] (optional: 1 to enable dry-run)"
+        printf  "Missing arguments."
+		printf "\n		Usage: snapshot_purge.sh [ dataset_name ] [ snapshots count to leave ] (optional: 1 to enable dry-run)"
         printf "\n      Example: snapshot_purge.sh Pool/dataset1 5"
+		printf "\n		Example (dry-run enabled): snapshot_purge.sh Pool1/dataset 5 1"
         exit 1
 fi
 
