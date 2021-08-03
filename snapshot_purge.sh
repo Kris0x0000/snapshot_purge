@@ -29,8 +29,8 @@ do
                 if [[ $CURRENT_SNAPSHOT_COUNT -ge 1 ]]
                 then
                         echo "this would be deleted..."
-                        zfs list -t snapshot -o name -S creation | grep $DATASET | tail -n 1
-                        CURRENT_SNAPSHOT_COUNT=$((CURRENT_SNAPSHOT_COUNT-1))
+						zfs list -t snapshot -o name -S creation | grep $DATASET | tail -n 1
+						CURRENT_SNAPSHOT_COUNT=$((CURRENT_SNAPSHOT_COUNT-1))
                 fi
                 else
 						echo "deleting snapshot..."
