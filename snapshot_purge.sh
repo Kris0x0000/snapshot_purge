@@ -1,17 +1,24 @@
 #!/bin/bash
-### conf ###
 
-# Name of the dataset.
-DATASET="Pool1/Downloads"
+# Usage: snapshot_purge.sh [ dataset_name ] [ snapshots count to leave ] (optional: dry run = 1 to enable)
+# Example: snapshot_purge.sh Pool1/dataset1 5 1
 
-# Leave N of the newest snapshots.
-LEAVE_N_SNAPSHOTS=1
-
-# Set this to 1 to see what snapshots would be deleted without actually deleting them.
+LEAVE_N_SNAPSHOTS=$2
 DRY_RUN=0
 
-### conf end ###
+if [[ -z $1 || -z $2 ]]
+then
+        printf  "Missing arguments.\n   Usage: snapshot_purge.sh [ dataset_name ] [ snapshots count to leave ] (optional: dry run = 1 to enable)"
+        printf "\n      Example: snapshot_purge.sh Pool1/dataset1 5 1"
+        exit 1
+fi
 
+if [ -z $3 ]
+then
+        DRY_RUN=$3
+fi
+
+DATASET="$1"
 CURRENT_SNAPSHOT_COUNT=`zfs list -t snapshot -o name -S creation | grep $DATASET | wc -l`
 
 while [ $CURRENT_SNAPSHOT_COUNT -gt $LEAVE_N_SNAPSHOTS ]
