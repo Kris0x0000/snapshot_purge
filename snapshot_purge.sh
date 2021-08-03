@@ -11,14 +11,15 @@ then
         exit 1
 fi
 
+LEAVE_N_SNAPSHOTS=$2
+DRY_RUN=0
+DATASET="$1"
+
 if [ -z $3 ]
 then
         DRY_RUN=$3
 fi
 
-LEAVE_N_SNAPSHOTS=$2
-DRY_RUN=0
-DATASET="$1"
 CURRENT_SNAPSHOT_COUNT=`zfs list -t snapshot -o name -S creation | grep $DATASET | wc -l`
 
 while [ $CURRENT_SNAPSHOT_COUNT -gt $LEAVE_N_SNAPSHOTS ]
